@@ -57,7 +57,7 @@ export function Home() {
         })
     }
    
-    const {updateFetchedList} = useContext(HomeContext)
+    const {updateFetchedList , updateCartList , updateWishList} = useContext(HomeContext)
    
    
     const [productList, setProductList] = useState([])
@@ -81,12 +81,15 @@ export function Home() {
     }, [])
 
     return <div>
-        {productList.map(({id , name ,description ,price })=>{
+        {productList.map((product)=>{
+            const{id , name ,description ,price } = product
             return <div key={id}>
                 <h2>{name}</h2>
                 <p>{description}</p>
                 <p>Price: {price}</p>
                 <Link to={`/product/${id}`}>Visit Item</Link>
+                <button onClick={()=>updateCartList(product)}>Add to Cart</button>
+                <button onClick={()=>updateWishList(product)}>Add to Wishlist</button>
             </div>
         })}
     </div>
